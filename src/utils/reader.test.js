@@ -1,6 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 
 const readJson = require('./reader');
+
+const mocks = path.join(__dirname, '..', '..', '/tests', '/mocks');
 
 beforeEach(() => {
   const valid = {
@@ -15,33 +18,40 @@ beforeEach(() => {
     ],
   };
 
-  fs.writeFileSync('tests/mocks/valid-json-file.json', JSON.stringify(valid));
-  fs.writeFileSync('tests/mocks/non-valid-json-file.json', '');
-  fs.writeFileSync('tests/mocks/non-json-file.txt', '');
+  fs.writeFileSync(
+    path.join(mocks, 'valid-json-file.json'),
+    JSON.stringify(valid)
+  );
+  fs.writeFileSync(path.join(mocks, 'non-valid-json-file.json'), '');
+  fs.writeFileSync(path.join(mocks, 'non-json-file.txt'), '');
 });
 
 afterEach(() => {
-  fs.unlinkSync('tests/mocks/valid-json-file.json');
-  fs.unlinkSync('tests/mocks/non-valid-json-file.json');
-  fs.unlinkSync('tests/mocks/non-json-file.txt');
+  fs.unlinkSync(path.join(mocks, 'valid-json-file.json'));
+  fs.unlinkSync(path.join(mocks, 'non-valid-json-file.json'));
+  fs.unlinkSync(path.join(mocks, 'non-json-file.txt'));
 });
 
 test('throws when file is not a json file', () => {
-  expect(() => readJson('tests/mocks/non-json-file.txt')).toThrowError(
+  expect(() => readJson(path.join(mocks, 'non-json-file.txt'))).toThrowError(
     `invalid file type. expected: json. received: .txt`
   );
 });
 
 test('throws when file content is not valid', () => {
-  expect(() => readJson('tests/mocks/non-valid-json-file.json')).toThrowError();
+  expect(() =>
+    readJson(path.join(mocks, 'non-valid-json-file.json'))
+  ).toThrowError();
 });
 
 test('throws when file is not found', () => {
-  expect(() => readJson('non-existent.file.json')).toThrowError();
+  expect(() =>
+    readJson(path.join(mocks, 'non-existent.file.json'))
+  ).toThrowError();
 });
 
 test('reads valid json and returns data', () => {
-  const data = readJson('tests/mocks/valid-json-file.json');
+  const data = readJson(path.join(mocks, 'valid-json-file.json'));
   expect(data).toHaveProperty('data');
   expect(data).toHaveProperty('startTime');
 });
