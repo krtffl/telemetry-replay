@@ -1,16 +1,23 @@
 const { status, data } = require('@adapters/telemetryResponse');
 const handleCommand = require('./handleCommand');
 const parseMessage = require('../adapters/clientMessage');
+const { log } = require('console');
 
-const handleSocketConnection = (ws, telemetry) => {
+const handleSocketConnection = (ws, telemetry, logger) => {
   const session = {
     isPlaying: false,
     lastItemStreamed: null,
     lastItem: telemetry.length - 1,
     interval: null,
   };
+  logger.info(`new session initialized: ${JSON.stringify(session)}`);
+
+  ws.on('error', (err) => {
+    logger.err(`unexpected error on socket. ${err}`);
+  });
 
   ws.on('message', (message) => {
+    logger.info(`incoming message: ${message}`);
     ws.send(JSON.stringify({ data: JSON.parse(message) }));
 
     handleCommand(session, parseMessage(message));
@@ -18,7 +25,12 @@ const handleSocketConnection = (ws, telemetry) => {
   });
 
   ws.on('close', () => {
+    logger.info('socket closed.');
+
+    const { interval, ...rest } = session;
     clearInterval(session.interval);
+
+    logger.info(`session: ${JSON.stringify(rest)}`);
   });
 
   sendTelemetry(ws, session, telemetry);

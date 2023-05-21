@@ -41,7 +41,7 @@ fastify.get('/', function (_, reply) {
 
 fastify.ready((err) => {
   if (err) {
-    fastify.log.error(e);
+    fastify.log.error(err);
     process.exit(1);
   }
 
@@ -50,15 +50,18 @@ fastify.ready((err) => {
 
   wss.on('connection', (socket) => {
     fastify.log.info('new socket connected!');
-    handleSocketConnection(socket, telemetry);
+    handleSocketConnection(socket, telemetry, fastify.log);
   });
 });
 
 fastify.listen(process.env.PORT || 3000, (err) => {
   if (err) {
-    fastify.log.error(e);
+    fastify.log.error(err);
     process.exit(1);
   }
+
+  console.log(`fastify server running...`);
+  console.log(`please find the logs at /logs`);
 });
 
 module.exports = fastify;

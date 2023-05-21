@@ -11,18 +11,19 @@
   "author": "perezdid",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^27.5.1",
-    "jest-mock-extended": "^3.0.4"
+    "jest": "^27.5.1"
   },
   "dependencies": {
     "@fastify/static": "^5.0.2",
     "dotenv": "^10.0.0",
     "fastify": "^3.29.5",
     "module-alias": "^2.2.2",
+    "puppeteer": "^5.5.0",
     "ws": "^7.5.9"
   },
   "_moduleAliases": {
     "@src": "src",
+    "@tests": "tests",
     "@adapters": "src/adapters",
     "@middlewares": "src/middlewares",
     "@utils": "src/utils"
@@ -30,6 +31,7 @@
   "jest": {
     "moduleNameMapper": {
       "^@src/(.*)$": "<rootDir>/src/$1",
+      "^@stests/(.*)$": "<rootDir>/tests/$1",
       "^@adapters/(.*)$": "<rootDir>/src/adapters/$1",
       "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
       "^@utils/(.*)$": "<rootDir>/src/utils/$1"
