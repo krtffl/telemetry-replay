@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const readJson = require('./reader');
+const readJson = require('../../../src/utils/reader');
 
 const mocks = path.join(__dirname, '..', '..', '/tests', '/mocks');
 

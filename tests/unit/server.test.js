@@ -1,4 +1,4 @@
-const fastify = require('./server');
+const fastify = require('../../src/server');
 
 afterAll(() => {
   fastify.close();
