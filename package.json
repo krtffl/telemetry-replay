@@ -4,6 +4,7 @@
   "description": "backend to replay telemetry data from a bike",
   "main": "index.js",
   "scripts": {
+    "start": "node src/server.js",
     "test": "jest"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
   "dependencies": {
     "@fastify/static": "^5.0.2",
     "dotenv": "^10.0.0",
-    "fastify": "^3.29.5"
+    "fastify": "^3.29.5",
+    "ws": "^7.5.9"
   }
 }
