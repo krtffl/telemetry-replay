@@ -13,9 +13,15 @@ const toWebSocket = (fastify) => {
         wss.emit('connection', ws, request);
       });
     } else {
+      fastify.log.info(
+        `socket closed due to mismatched path. expected: /replay. received: ${pathname}`
+      );
+
       socket.destroy();
     }
   });
+
+  fastify.log.info('fastify server upgraded to handle web sockets at /replay');
 
   return wss;
 };

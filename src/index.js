@@ -35,9 +35,6 @@ fastify.get('/', function (_, reply) {
     }
 
     const wss = toWebSocket(fastify);
-    fastify.log.info(
-      'fastify server upgraded to handle web sockets at /replay'
-    );
 
     wss.on('connection', (socket) => {
       fastify.log.info('new socket connected!');
