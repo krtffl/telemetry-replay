@@ -1,4 +1,4 @@
-const { data, status } = require('../../../src/adapters/telemetry');
+const { data, status } = require('../../../src/adapters/telemetryResponse');
 
 describe('telemetry data response', () => {
   test('returns data properly mapped', () => {
@@ -33,7 +33,9 @@ describe('streaming status response', () => {
 
     const expected = {
       kind: 'status',
-      data: input,
+      data: {
+        status: input,
+      },
     };
 
     expect(status(input)).toEqual(JSON.stringify(expected));

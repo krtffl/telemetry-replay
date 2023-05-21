@@ -10,13 +10,18 @@ const data = (data) => {
   }
 };
 
-const status = (data) => {
-  if (typeof data !== 'string') {
+const status = (status) => {
+  if (typeof status !== 'string') {
     throw new Error(
-      `invalid status type. expected: string. received: ${typeof data}`
+      `invalid status type. expected: string. received: ${typeof status}`
     );
   }
-  return JSON.stringify({ kind: 'status', data });
+  return JSON.stringify({
+    kind: 'status',
+    data: {
+      status,
+    },
+  });
 };
 
 module.exports = { data, status };

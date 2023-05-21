@@ -1,4 +1,6 @@
-const { status, data } = require('@adapters/telemetry');
+const { status, data } = require('@adapters/telemetryResponse');
+const handleCommand = require('./handleCommand');
+const parseMessage = require('../adapters/clientMessage');
 
 const handleSocketConnection = (ws, telemetry) => {
   const session = {
@@ -9,22 +11,9 @@ const handleSocketConnection = (ws, telemetry) => {
   };
 
   ws.on('message', (message) => {
-    const { command } = JSON.parse(message);
+    ws.send(JSON.stringify({ data: JSON.parse(message) }));
 
-    if (command === 'play') {
-      session.isPlaying = true;
-    }
-
-    if (command === 'stop') {
-      session.isPlaying = false;
-    }
-
-    if (command === 'reset') {
-      session.isPlaying = false;
-      session.lastItemStreamed = null;
-    }
-
-    ws.send(status(command));
+    handleCommand(session, parseMessage(message));
     sendTelemetry(ws, session, telemetry);
   });
 
@@ -52,16 +41,17 @@ const sendTelemetry = (ws, session, telemetry) => {
     return;
   }
 
-  if (session.lastItemStreamed === session.lastItem) {
-    ws.send(status('stop'));
-    clearInterval(session.interval);
-    return;
-  }
-
   session.interval = setInterval(() => {
+    if (session.lastItemStreamed === session.lastItem) {
+      ws.send(status('stop'));
+      clearInterval(session.interval);
+
+      return;
+    }
+
     ws.send(data(telemetry[session.lastItemStreamed + 1]));
     session.lastItemStreamed++;
-  }, 55);
+  }, parseInt(process.env.STREAMING_INTERVAL) || 55);
 };
 
 module.exports = handleSocketConnection;

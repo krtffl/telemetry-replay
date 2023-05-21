@@ -1,4 +1,6 @@
-const fastify = require('../../src/server');
+const WebSocket = require('ws');
+
+const fastify = require('@src/server');
 
 afterAll(() => {
   fastify.close();
@@ -14,6 +16,8 @@ test('serve frontend file', async () => {
   expect(response.headers['content-type']).toBe('text/html; charset=UTF-8');
   expect(response.body).toContain('<html>');
 });
+
+test('', async () => {});
 
 test('return 404 for unhandled routes', async () => {
   const response = await fastify.inject({

@@ -15,9 +15,9 @@ const fastify = require('fastify')({
   },
 });
 
-const toWebSocket = require('@middlewares/upgrade');
-const readJson = require('@utils/reader');
-const handleSocketConnection = require('@utils/player');
+const toWebSocket = require('@middlewares/upgradeToSocket');
+const readJson = require('@utils/fileReader');
+const handleSocketConnection = require('@utils/handleSocket');
 
 require('dotenv').config();
 

@@ -22,8 +22,17 @@
     "ws": "^7.5.9"
   },
   "_moduleAliases": {
+    "@src": "src",
     "@adapters": "src/adapters",
     "@middlewares": "src/middlewares",
     "@utils": "src/utils"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@src/(.*)$": "<rootDir>/src/$1",
+      "^@adapters/(.*)$": "<rootDir>/src/adapters/$1",
+      "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
+      "^@utils/(.*)$": "<rootDir>/src/utils/$1"
+    }
   }
 }
