@@ -44,7 +44,6 @@ const readJsonStream = (filepath) => {
     });
 
     stream.on('end', () => {
-      console.log('resolving fle');
       resolve(file);
     });
   });
