@@ -1,4 +1,4 @@
-const { status, data } = require('../helpers/adapter');
+const { status, data } = require('@adapters/telemetry');
 
 const handleSocketConnection = (ws, telemetry) => {
   const session = {

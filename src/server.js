@@ -6,6 +6,8 @@ const logfile = path.join(
   `/${new Date().toISOString()}.log`
 );
 
+require('module-alias/register');
+
 const fastify = require('fastify')({
   logger: {
     level: 'info',
@@ -13,9 +15,9 @@ const fastify = require('fastify')({
   },
 });
 
-const toWebSocket = require('./middlewares/socket');
-const readJson = require('./utils/reader');
-const handleSocketConnection = require('./utils/player');
+const toWebSocket = require('@middlewares/upgrade');
+const readJson = require('@utils/reader');
+const handleSocketConnection = require('@utils/player');
 
 require('dotenv').config();
 
