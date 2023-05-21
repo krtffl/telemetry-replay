@@ -1,5 +1,6 @@
 const path = require('path');
 const { readFile } = require('@utils/fileReader');
+const config = require('@src/config');
 
 const loadTelemetry = async () => {
   const telemetryFilepath = path.join(
@@ -7,7 +8,7 @@ const loadTelemetry = async () => {
     '..',
     '..',
     '/data',
-    process.env.SIMULATION_FILENAME || 'simfile.json'
+    config.SIMULATION_FILENAME
   );
 
   const telemetry = await readFile(telemetryFilepath);

@@ -1,5 +1,5 @@
 require('module-alias/register');
-require('dotenv').config();
+
 const path = require('path');
 
 const fastify = require('fastify')({
@@ -12,20 +12,21 @@ const fastify = require('fastify')({
 const loadTelemetry = require('@helpers/loadTelemetry');
 const toWebSocket = require('@middlewares/upgradeToSocket');
 const handleSocketConnection = require('@utils/handleSocket');
+const config = require('@src/config');
 
 fastify.register(require('@fastify/static'), {
   root: path.join(__dirname, '..', '/public'),
 });
 
 fastify.get('/', function (_, reply) {
-  reply.sendFile(process.env.FRONTEND_FILENAME || 'frontend.html');
+  reply.sendFile(config.FRONTEND_FILENAME);
 });
 
 (async () => {
   const { telemetry, telemetryFilepath } = await loadTelemetry();
 
   fastify.log.info(`telemetry file loaded: ${telemetryFilepath}`);
-  fastify.log.info(`used streams?: ${process.env.USE_STREAMS || false}`);
+  fastify.log.info(`used streams?: ${config.USE_STREAMS}`);
 
   fastify.ready((err) => {
     if (err) {
