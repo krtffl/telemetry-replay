@@ -3,7 +3,7 @@ const path = require('path');
 
 const readJson = require('../../../src/utils/reader');
 
-const mocks = path.join(__dirname, '..', '..', '/tests', '/mocks');
+const mocks = path.join(__dirname, '..', '..', '/mocks');
 
 beforeEach(() => {
   const valid = {
@@ -52,6 +52,6 @@ test('throws when file is not found', () => {
 
 test('reads valid json and returns data', () => {
   const data = readJson(path.join(mocks, 'valid-json-file.json'));
-  expect(data).toHaveProperty('data');
-  expect(data).toHaveProperty('startTime');
+  expect(data).toBeInstanceOf(Array);
+  expect(data).toBeTruthy();
 });
