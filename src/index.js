@@ -31,7 +31,6 @@ fastify.get('/', function (_, reply) {
   fastify.ready((err) => {
     if (err) {
       fastify.log.error(err);
-      process.exit(1);
     }
 
     const wss = toWebSocket(fastify);
@@ -45,7 +44,6 @@ fastify.get('/', function (_, reply) {
   fastify.listen(process.env.PORT || 3000, (err) => {
     if (err) {
       fastify.log.error(err);
-      process.exit(1);
     }
 
     console.log(`fastify server running...`);
