@@ -1,3 +1,5 @@
+const { status, data } = require('../helpers/adapter');
+
 const handleSocketConnection = (ws, telemetry) => {
   const session = {
     isPlaying: false,
@@ -27,7 +29,6 @@ const handleSocketConnection = (ws, telemetry) => {
   });
 
   ws.on('close', () => {
-    ws.send(status('stop'));
     clearInterval(session.interval);
   });
 
@@ -61,17 +62,6 @@ const sendTelemetry = (ws, session, telemetry) => {
     ws.send(data(telemetry[session.lastItemStreamed + 1]));
     session.lastItemStreamed++;
   }, 55);
-};
-
-const data = (data) => {
-  const { time: t } = data;
-  const time = t.split('T')[1].split('+')[0];
-
-  return JSON.stringify({ kind: 'data', data: { ...data, time } });
-};
-
-const status = (data) => {
-  return JSON.stringify({ kind: 'status', data });
 };
 
 module.exports = handleSocketConnection;
