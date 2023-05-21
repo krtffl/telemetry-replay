@@ -1,8 +1,19 @@
-const fastify = require('fastify')({ logger: true });
 const path = require('path');
+const logfile = path.join(
+  __dirname,
+  '..',
+  '/logs',
+  `/${new Date().toISOString()}.log`
+);
+
+const fastify = require('fastify')({
+  logger: {
+    level: 'info',
+    file: logfile,
+  },
+});
 
 const toWebSocket = require('./middlewares/socket');
-const handleError = require('./helpers/errors');
 const readJson = require('./utils/reader');
 const handleSocketConnection = require('./utils/player');
 
@@ -27,7 +38,10 @@ fastify.get('/', function (_, reply) {
 });
 
 fastify.ready((err) => {
-  if (err) handleError(err);
+  if (err) {
+    fastify.log.error(e);
+    process.exit(1);
+  }
 
   const wss = toWebSocket(fastify);
   fastify.log.info('fastify server upgraded to handle web sockets at /replay');
@@ -39,7 +53,10 @@ fastify.ready((err) => {
 });
 
 fastify.listen(process.env.PORT || 3000, (err) => {
-  if (err) handleError(err);
+  if (err) {
+    fastify.log.error(e);
+    process.exit(1);
+  }
 });
 
 module.exports = fastify;
