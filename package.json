@@ -39,5 +39,8 @@
       "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
       "^@utils/(.*)$": "<rootDir>/src/utils/$1"
     }
+  },
+  "engines": {
+    "node": "^10"
   }
 }
