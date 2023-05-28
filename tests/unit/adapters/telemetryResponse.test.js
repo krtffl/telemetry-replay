@@ -1,4 +1,4 @@
-const { data, status } = require('../../../src/adapters/telemetryResponse');
+const { data, status } = require('@adapters/telemetryResponse');
 
 describe('telemetry data response', () => {
   test('returns data properly mapped', () => {

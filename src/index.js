@@ -5,14 +5,14 @@ const path = require('path');
 const fastify = require('fastify')({
   logger: {
     level: 'info',
-    file: require('@helpers/setupLogfile')(),
+    file: require('@helpers/generateLogFilename')(),
   },
 });
 
 const loadTelemetry = require('@helpers/loadTelemetry');
 const toWebSocket = require('@middlewares/upgradeToSocket');
 const handleSocketConnection = require('@utils/handleSocket');
-const config = require('@src/config');
+const config = require('@config/config');
 
 fastify.register(require('@fastify/static'), {
   root: path.join(__dirname, '..', '/public'),

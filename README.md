@@ -42,7 +42,7 @@ SIMULATION_FILENAME={FILENAME}
 FRONTEND_FILENAME={FILENAME}
 
 - simulation file: shoud go into /data
-- frontend fime: should go into /public
+- frontend file: should go into /public
 
 _filename shoud include extension_
 
