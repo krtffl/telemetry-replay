@@ -5,6 +5,7 @@ const { chain } = require('stream-chain');
 const { parser } = require('stream-json');
 const { pick } = require('stream-json/filters/Pick');
 const { streamArray } = require('stream-json/streamers/StreamArray');
+const config = require('@config/config');
 
 const readJson = (filepath) => {
   const filetype = path.extname(filepath);
@@ -50,7 +51,7 @@ const readJsonStream = (filepath) => {
 };
 
 const readFile = async (filepath) => {
-  if (process.env.USE_STREAMS) {
+  if (config.USE_STREAMS) {
     return await readJsonStream(filepath);
   }
 
