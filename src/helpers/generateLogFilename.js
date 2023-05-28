@@ -1,6 +1,6 @@
 const path = require('path');
 
-const setupLogfile = () => {
+const generateFilename = () => {
   return path.join(
     __dirname,
     '..',
@@ -10,4 +10,4 @@ const setupLogfile = () => {
   );
 };
 
-module.exports = setupLogfile;
+module.exports = generateFilename;

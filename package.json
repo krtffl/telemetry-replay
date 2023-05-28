@@ -28,7 +28,8 @@
     "@adapters": "src/adapters",
     "@helpers": "src/helpers",
     "@middlewares": "src/middlewares",
-    "@utils": "src/utils"
+    "@utils": "src/utils",
+    "@config": "src/config"
   },
   "jest": {
     "moduleNameMapper": {
@@ -37,7 +38,8 @@
       "^@adapters/(.*)$": "<rootDir>/src/adapters/$1",
       "^@helpers/(.*)$": "<rootDir>/src/helpers/$1",
       "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
-      "^@utils/(.*)$": "<rootDir>/src/utils/$1"
+      "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+      "^@config/(.*)$": "<rootDir>/src/config/$1"
     }
   },
   "engines": {

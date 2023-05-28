@@ -1,7 +1,7 @@
 const { status, data } = require('@adapters/telemetryResponse');
-const handleCommand = require('./handleCommand');
-const parseMessage = require('../adapters/clientMessage');
-const config = require('../config');
+const handleCommand = require('@utils/handleCommand');
+const parseMessage = require('@adapters/clientMessage');
+const config = require('@config/config');
 
 const handleSocketConnection = (ws, telemetry, logger) => {
   const session = {

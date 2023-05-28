@@ -1,4 +1,4 @@
-const parseMessage = require('../../../src/adapters/clientMessage');
+const parseMessage = require('@adapters/clientMessage');
 
 test('throws with an invalid json', () => {
   const invalidMessage = 'invalid JSON';

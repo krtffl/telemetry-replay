@@ -1,6 +1,6 @@
 const path = require('path');
 const { readFile } = require('@utils/fileReader');
-const config = require('@src/config');
+const config = require('@config/config');
 
 const loadTelemetry = async () => {
   const telemetryFilepath = path.join(

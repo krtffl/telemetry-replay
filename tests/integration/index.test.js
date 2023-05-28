@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const Page = require('../helpers/page');
+const Page = require('@tests/helpers/page');
 
 let page;
 
